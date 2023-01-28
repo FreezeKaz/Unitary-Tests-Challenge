@@ -4,9 +4,11 @@ namespace TU_Challenge.Tests
     /// Exercice 2, cette fois-ci on fait un peu d'algorythme jouant avec des boucles
     /// Pour rendre les tests visible, tu dois passer le "#if false" à "#if true" ligne 7
     /// </summary>
-#if false
+#if true
     public class Test2_Strings
     {
+
+        MyStringImplementation myStrings = new MyStringImplementation();
         [Test]
         [TestCase("HelloWorld", false)]
         [TestCase("", true)]
@@ -16,7 +18,7 @@ namespace TU_Challenge.Tests
         [TestCase(null, true)]
         public void CreateIsNullOrEmpty(string input, bool expected)
         {
-            bool result = MyStringImplementation.IsNullEmptyOrWhiteSpace(input);
+            bool result = myStrings.IsNullEmptyOrWhiteSpace(input);
 
             Assert.That(result, Is.EqualTo(expected));
         }
@@ -28,7 +30,7 @@ namespace TU_Challenge.Tests
         [TestCase("AB", "ZYXW", "AZBYXW")]
         public void MixStrings(string a, string b, string expected)
         {
-            string result = MyStringImplementation.MixString(a, b);
+            string result = myStrings.MixString(a, b);
             Assert.That(result, Is.EqualTo(expected));
         }
 
@@ -42,7 +44,7 @@ namespace TU_Challenge.Tests
 
             Assert.Throws<ArgumentException>(() =>
             {
-                MyStringImplementation.MixString(a, b);
+                myStrings.MixString(a, b);
             });
         }
 
@@ -57,57 +59,61 @@ namespace TU_Challenge.Tests
         [TestCase("Don't BE mad bro :(", "don't be mad bro :(")]
         public void LowerCase(string a, string expected)
         {
-            string result = MyStringImplementation.ToLowerCase(a);
+            string result = myStrings.ToLowerCase(a);
             Assert.That(result, Is.EqualTo(expected));
         }
-
+        
         [Test]
         [TestCase("Hello", "eo")]
         [TestCase("Coucou", "ou")]
         [TestCase("Lorem Ipsum", "oeiu")]
         public void Voyelles(string a, string expected)
         {
-            string result = MyStringImplementation.Voyelles(a);
+            string result = myStrings.Voyelles(a);
             Assert.That(result, Is.EqualTo(expected));
         }
 
+         
         [Test]
         [TestCase("IIM", "MII")]
         [TestCase("HelloWorld", "dlroWolleH")]
         public void Reverse(string a, string expected)
         {
-            string result = MyStringImplementation.Reverse(a);
+            string result = myStrings.Reverse(a);
             Assert.That(result, Is.EqualTo(expected));
         }
+        
+/// On prend une lettre sur 2, arrivé au bout on prend les lettres sautés
+[TestCase("HelloWorld", "HloolelWrd")]
+public void BazardString(string input, string expected)
+{
+    string result = myStrings.BazardString(input);
+    Assert.That(result, Is.EqualTo(expected));
+}
 
-        /// On prend une lettre sur 2, arrivé au bout on prend les lettres sautés
-        [TestCase("HelloWorld", "HloolelWrd")]
-        public void BazardString(string input, string expected)
-        {
-            string result = MyStringImplementation.BazardString(input);
-            Assert.That(result, Is.EqualTo(expected));
-        }
+ 
+/// Opération inverse au BazardString
+[TestCase("HloolelWrd", "HelloWorld")]
+public void UnBazardString(string input, string expected)
+{
+    string result = myStrings.UnBazardString(input);
+    Assert.That(result, Is.EqualTo(expected));
+}
 
-        /// Opération inverse au BazardString
-        [TestCase("HloolelWrd", "HelloWorld")]
-        public void UnBazardString(string input, string expected)
-        {
-            string result = MyStringImplementation.UnBazardString(input);
-            Assert.That(result, Is.EqualTo(expected));
-        }
-
-        /// <summary>
-        /// Bonus, non obligatoire pour aujourd'hui, pour comprendre le code de césar : 
-        /// https://fr.wikipedia.org/wiki/Chiffrement_par_d%C3%A9calage
-        /// https://www.dcode.fr/chiffre-cesar
-        /// </summary>
-        [TestCase("hello world", 3, "khoor zruog")]
-        [TestCase("je suis balaise", 10, "to cesc lkvksco")]
-        public void StringToCesarCode(string input, int offset, string expected)
-        {
-            string result = MyStringImplementation.ToCesarCode(input, offset);
-            Assert.That(result, Is.EqualTo(expected));
-        }
+        
+        /*
+/// <summary>
+/// Bonus, non obligatoire pour aujourd'hui, pour comprendre le code de césar : 
+/// https://fr.wikipedia.org/wiki/Chiffrement_par_d%C3%A9calage
+/// https://www.dcode.fr/chiffre-cesar
+/// </summary>
+[TestCase("hello world", 3, "khoor zruog")]
+[TestCase("je suis balaise", 10, "to cesc lkvksco")]
+public void StringToCesarCode(string input, int offset, string expected)
+{
+    string result = MyStringImplementation.ToCesarCode(input, offset);
+    Assert.That(result, Is.EqualTo(expected));
+}*/
 
     }
 #endif
